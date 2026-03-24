@@ -69,7 +69,6 @@
             visibility: hidden;
             pointer-events: none;
         }
-        /* ------------------------------------------- */
 
         body {
             margin: 0;
@@ -234,7 +233,6 @@
 
     <div id="video-overlay">
         <video id="intro-video" src="IntroTrabalhoInterdisciplinar.mp4" playsinline></video>
-        
         <button class="btn-entrar-full" onclick="iniciarSite()">Clique para Entrar</button>
     </div>
 
@@ -242,7 +240,6 @@
         <nav>
             <a href="#" class="active" onclick="showTab('inicio', this)">Início</a>
             <a href="#" onclick="showTab('sobre', this)">Sobre</a>
-            <a href="#" onclick="showTab('videos', this)">Vídeos</a>
             <a href="#" onclick="showTab('imagens', this)">Imagens</a>
         </nav>
     </header>
@@ -250,13 +247,10 @@
     <div class="wrapper fade-in">
         <div id="inicio" class="tab-content active">
             <h1 style="font-weight: bold;"> Colégio Marista <span>São Luís</span></h1>
-            
             <div class="divider"></div>
-
             <div class="img-box">
                 <img src="https://i.ibb.co/MyX27pbJ/Captura-de-tela-2026-03-20-162538.png" alt="Fachada do Colégio">
             </div>
-
             <div class="content-text">
                O nosso colégio, localizado no bairro das Graças, em Recife(Pernambuco), tem um perímetro de aproximadamente 731 metros, abrangendo um largo espaço, cheio de áreas naturais, com árvores, arbustos e jardins. A escola é um espaço geralmente cheio, com mais de 1000 estudantes e o número de funcionários é em torno desse mesmo valor, ou até mais. É um local que está estabelecido a exatamente 115 anos, recebendo uma homenagem na Assembleia Legislativa do Estado de Pernambuco (ALEPE) recentemente, quando completou seu último aniversário.
             </div>
@@ -265,21 +259,16 @@
         <div id="sobre" class="tab-content">
             <h1 style="font-weight: bold;">Sobre o colégio Marista</h1>
             <div class="divider"></div>
-            
             <div class="img-box">
                 <video src="VídeoTrabalhoInterdisciplinar2.mp4" controls></video>
             </div>
-
             <div class="content-text">
                 <strong>PERGUNTAS:</strong><br>
                 1. Qual a origem histórica do local?<br>
                 2. Por que é considerado patrimônio?<br>
                 3. Que elementos culturais ou naturais se destacam?<br><br>
-
                 1. Começou com um jovem chamado Marcelino Champagnat, lá na França, onde em La Valla, ele aprendeu os caminhos de Maria e tentou reproduzir isso para os jovens da região. E então, isso foi se disseminando pelo mundo, chegou ao Brasil, e especificamente no ano de 1911, chegou aqui no bairro das Graças, e então foi fundado nosso colégio.<br><br>
-
                 2. O colégio não é um patrimônio estadual, porém, por vários fatores, esse local é muito importante aqui na região das Graças. Primeiramente, por ser um ponto onde está há mais de 100 anos e agrega vários estudantes, e pelo ponto social, modifica a vida de vários estudantes e jovens por muitos anos. Também por valores econômicos, vários restaurantes e outros espaços são construídos estrategicamente nessa região para atender os estudantes do colégio. E ainda mais, a estrutura do nosso colégio mostra que ele foi construído a muito tempo mas também vai evoluindo com o tempo, que tenta se modernizar de acordo com a juventude.<br><br>
-
                 3. Essa escola é um local muito tradicional e geralmente faz parte da vida das pessoas desde a infância até a formação no terceiro ano do Ensino Médio, ou seja, é um local que tem uma formação ao longo do crescimento, então é um local que modifica a vida das pessoas, tentando torná-las virtuosos cidadãos e bons cristãos. Ela também é cercada por eventos, então os estudantes e as pessoas que convivem pela escola têm vivências nesse espaço. Também é um colégio cheio de natureza, tem várias árvores e tem áreas sustentáveis, tem várias áreas com areia, árvores, plantas e arbustos, muito bem tratados e feitos para ser um espaço mais harmonioso e sustentável.
             </div>
         </div>
@@ -287,8 +276,14 @@
         <div id="imagens" class="tab-content">
             <h1 style="font-weight: bold;">Imagens</h1>
             <div class="divider"></div>
+            <div class="img-box">
+                <img src="img1.jpg" alt="Escola">
+            </div>
+            <div class="img-box">
+                <img src="img2.jpg" alt="Grupo">
+            </div>
             <div class="content-text" style="text-align: center;">
-                Galeria de fotos em desenvolvimento.
+                Galeria de fotos.
             </div>
         </div>
     </div>
@@ -316,18 +311,23 @@
 
         function finalizarIntro() {
             const overlay = document.getElementById('video-overlay');
-            overlay.classList.add('hidden');
-            setTimeout(() => overlay.remove(), 1000);
+            if (overlay) {
+                overlay.classList.add('hidden');
+                setTimeout(() => overlay.remove(), 1000);
+            }
         }
 
         function showTab(tabId, el) {
             document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
             document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+            
             const targetContent = document.getElementById(tabId);
             if(targetContent) {
                 targetContent.classList.add('active');
             }
-            el.classList.add('active');
+            if(el) {
+                el.classList.add('active');
+            }
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
     </script>
