@@ -11,12 +11,11 @@
             --gold-thin: #d4af37; 
             --white-glass: rgba(255, 255, 255, 0.9);
             --line-color: rgba(255, 255, 255, 0.1);
-            
             --header-blur: 20px; 
             --header-bg: rgba(5, 22, 42, 0.7); 
         }
 
-        /* --- ESTILOS DO VÍDEO E BOTÃO TELA CHEIA --- */
+
         #video-overlay {
             position: fixed;
             top: 0;
@@ -35,8 +34,6 @@
             width: 100%;
             max-width: 1000px;
             box-shadow: 0 0 50px rgba(0,0,0,0.5);
-            transition: filter 0.5s ease;
-            filter: blur(8px); /* Blur inicial antes de clicar */
         }
 
         .btn-entrar-full {
@@ -45,7 +42,10 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.4); /* Escurece levemente o fundo */
+            background: rgba(0, 0, 0, 0.5); 
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px); 
+            
             border: none;
             color: var(--gold-thin);
             cursor: pointer;
@@ -54,15 +54,23 @@
             font-family: 'Merriweather', serif;
             font-size: 1.2rem;
             z-index: 10;
-            transition: background 0.3s;
+            transition: all 0.5s ease;
             display: flex;
             justify-content: center;
             align-items: center;
         }
 
         .btn-entrar-full:hover {
-            background: rgba(0, 0, 0, 0.2);
+            background: rgba(0, 0, 0, 0.3);
             color: white;
+        }
+
+        .btn-entrar-full.clicked {
+            backdrop-filter: blur(0px);
+            -webkit-backdrop-filter: blur(0px);
+            background: transparent;
+            color: transparent;
+            pointer-events: none;
         }
 
         .hidden {
@@ -70,7 +78,6 @@
             visibility: hidden;
             pointer-events: none;
         }
-        /* ------------------------------------------- */
 
         body {
             margin: 0;
@@ -251,48 +258,33 @@
     <div class="wrapper fade-in">
         <div id="inicio" class="tab-content active">
             <h1 style="font-weight: bold;"> Colégio Marista <span>São Luís</span></h1>
-            
             <div class="divider"></div>
-
             <div class="img-box">
                 <img src="https://i.ibb.co/MyX27pbJ/Captura-de-tela-2026-03-20-162538.png" alt="Fachada do Colégio">
             </div>
-
             <div class="content-text">
                 Nossa escola é mais do que um centro de ensino, é uma família dedicada à formação integral de cidadãos éticos e solidários. Aqui, unimos tradição e inovação para criar um ambiente de aprendizado acolhedor e estimulante.
             </div>
         </div>
-
-        <div id="historia" class="tab-content">
-            <h1>Nossa História</h1>
-            <div class="divider"></div>
-            <div class="content-text">
-                Um legado centenário focado na formação humana integral, seguindo os passos de São Marcelino Champagnat.
-            </div>
         </div>
-    </div>
 
     <footer>
-        Trabalho interdisciplinar © 2026 - Bruna Santos, Elis Maria Tenderini, Guilerme Didier, Giulia Vitoria de Brito, Laura Luz, Lucas Mayrinck, Maria Clara Moraes, Miguel Dionisio, Miguel Salgado, Rafael Lima.
+        Trabalho interdisciplinar © 2026 - Grupo Marista
     </footer>
 
     <script>
         function iniciarSite() {
             const video = document.getElementById('intro-video');
-            const overlay = document.getElementById('video-overlay');
             const btn = document.querySelector('.btn-entrar-full');
 
-            // Remove o blur do vídeo e esconde o botão
-            video.style.filter = "none";
-            btn.style.display = "none";
+            // blur aaaaaa
+            btn.classList.add('clicked');
 
-            // Inicia o vídeo com som
             video.play().catch(error => {
-                console.error("Erro ao dar play:", error);
+                console.error("Erro:", error);
                 finalizarIntro();
             });
 
-            // Quando terminar, entra no site
             video.onended = finalizarIntro;
         }
 
@@ -306,9 +298,7 @@
             document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
             document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
             const targetContent = document.getElementById(tabId);
-            if(targetContent) {
-                targetContent.classList.add('active');
-            }
+            if(targetContent) targetContent.classList.add('active');
             el.classList.add('active');
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
