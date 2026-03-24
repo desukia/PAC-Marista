@@ -16,7 +16,6 @@
             --header-bg: rgba(5, 22, 42, 0.7); 
         }
 
-        /* --- ESTILOS DO VÍDEO E BOTÃO TELA CHEIA --- */
         #video-overlay {
             position: fixed;
             top: 0;
@@ -36,7 +35,7 @@
             max-width: 1000px;
             box-shadow: 0 0 50px rgba(0,0,0,0.5);
             transition: filter 0.5s ease;
-            filter: blur(8px); /* Blur inicial antes de clicar */
+            filter: blur(8px); 
         }
 
         .btn-entrar-full {
@@ -45,7 +44,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.4); /* Escurece levemente o fundo */
+            background: rgba(0, 0, 0, 0.4);
             border: none;
             color: var(--gold-thin);
             cursor: pointer;
@@ -242,7 +241,7 @@
     <header>
         <nav>
             <a href="#" class="active" onclick="showTab('inicio', this)">Início</a>
-            <a href="#" onclick="showTab('historia', this)">História</a>
+            <a href="#" onclick="showTab('sobre', this)">Sobre</a>
             <a href="#" onclick="showTab('videos', this)">Vídeos</a>
             <a href="#" onclick="showTab('imagens', this)">Imagens</a>
         </nav>
@@ -263,8 +262,8 @@
             </div>
         </div>
 
-        <div id="historia" class="tab-content">
-            <h1>Nossa História</h1>
+        <div id="sobre" class="tab-content">
+            <h1>Sobre o Marista</h1>
             <div class="divider"></div>
             
             <div class="img-box">
