@@ -183,14 +183,14 @@
             border-radius: 4px;
         }
 
-        .img-box img {
+        .img-box img, .img-box video {
             width: 100%;
             display: block;
             filter: brightness(0.85);
             transition: 1s cubic-bezier(0.2, 1, 0.2, 1);
         }
 
-        .img-box:hover img {
+        .img-box:hover img, .img-box:hover video {
             filter: brightness(1.05);
             transform: scale(1.015);
         }
@@ -242,9 +242,9 @@
     <header>
         <nav>
             <a href="#" class="active" onclick="showTab('inicio', this)">Início</a>
-            <a href="#" onclick="showTab('imagens', this)">Imagens</a>
-            <a href="#" onclick="showTab('videos', this)">Vídeos</a>
             <a href="#" onclick="showTab('historia', this)">História</a>
+            <a href="#" onclick="showTab('videos', this)">Vídeos</a>
+            <a href="#" onclick="showTab('imagens', this)">Imagens</a>
         </nav>
     </header>
 
@@ -259,15 +259,37 @@
             </div>
 
             <div class="content-text">
-                Nossa escola é mais do que um centro de ensino, é uma família dedicada à formação integral de cidadãos éticos e solidários. Aqui, unimos tradição e inovação para criar um ambiente de aprendizado acolhedor e estimulante.
+               O nosso colégio, localizado no bairro das Graças, em Recife(Pernambuco), tem um perímetro de aproximadamente 731 metros, abrangendo um largo espaço, cheio de áreas naturais, com árvores, arbustos e jardins. A escola é um espaço geralmente cheio, com mais de 1000 estudantes e o número de funcionários é em torno desse mesmo valor, ou até mais. É um local que está estabelecido a exatamente 115 anos, recebendo uma homenagem na Assembleia Legislativa do Estado de Pernambuco (ALEPE) recentemente, quando completou seu último aniversário.
             </div>
         </div>
 
         <div id="historia" class="tab-content">
             <h1>Nossa História</h1>
             <div class="divider"></div>
+            
+            <div class="img-box">
+                <video src="VídeoTrabalhoInterdisciplinar2.mp4" controls></video>
+            </div>
+
             <div class="content-text">
-                Um legado centenário focado na formação humana integral, seguindo os passos de São Marcelino Champagnat.
+                <strong>PERGUNTAS:</strong><br>
+                1. Qual a origem histórica do local?<br>
+                2. Por que é considerado patrimônio?<br>
+                3. Que elementos culturais ou naturais se destacam?<br><br>
+
+                1. Começou com um jovem chamado Marcelino Champagnat, lá na França, onde em La Valla, ele aprendeu os caminhos de Maria e tentou reproduzir isso para os jovens da região. E então, isso foi se disseminando pelo mundo, chegou ao Brasil, e especificamente no ano de 1911, chegou aqui no bairro das Graças, e então foi fundado nosso colégio.<br><br>
+
+                2. O colégio não é um patrimônio estadual, porém, por vários fatores, esse local é muito importante aqui na região das Graças. Primeiramente, por ser um ponto onde está há mais de 100 anos e agrega vários estudantes, e pelo ponto social, modifica a vida de vários estudantes e jovens por muitos anos. Também por valores econômicos, vários restaurantes e outros espaços são construídos estrategicamente nessa região para atender os estudantes do colégio. E ainda mais, a estrutura do nosso colégio mostra que ele foi construído a muito tempo mas também vai evoluindo com o tempo, que tenta se modernizar de acordo com a juventude.<br><br>
+
+                3. Essa escola é um local muito tradicional e geralmente faz parte da vida das pessoas desde a infância até a formação no terceiro ano do Ensino Médio, ou seja, é um local que tem uma formação ao longo do crescimento, então é um local que modifica a vida das pessoas, tentando torná-las virtuosos cidadãos e bons cristãos. Ela também é cercada por eventos, então os estudantes e as pessoas que convivem pela escola têm vivências nesse espaço. Também é um colégio cheio de natureza, tem várias árvores e tem áreas sustentáveis, tem várias áreas com areia, árvores, plantas e arbustos, muito bem tratados e feitos para ser um espaço mais harmonioso e sustentável.
+            </div>
+        </div>
+
+        <div id="imagens" class="tab-content">
+            <h1>Imagens</h1>
+            <div class="divider"></div>
+            <div class="content-text" style="text-align: center;">
+                Galeria de fotos em desenvolvimento.
             </div>
         </div>
     </div>
@@ -282,17 +304,14 @@
             const overlay = document.getElementById('video-overlay');
             const btn = document.querySelector('.btn-entrar-full');
 
-            // Remove o blur do vídeo e esconde o botão
             video.style.filter = "none";
             btn.style.display = "none";
 
-            // Inicia o vídeo com som
             video.play().catch(error => {
                 console.error("Erro ao dar play:", error);
                 finalizarIntro();
             });
 
-            // Quando terminar, entra no site
             video.onended = finalizarIntro;
         }
 
