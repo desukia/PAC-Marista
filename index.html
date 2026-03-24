@@ -11,10 +11,12 @@
             --gold-thin: #d4af37; 
             --white-glass: rgba(255, 255, 255, 0.9);
             --line-color: rgba(255, 255, 255, 0.1);
+            
             --header-blur: 20px; 
             --header-bg: rgba(5, 22, 42, 0.7); 
         }
 
+        /* --- ESTILOS DO VÍDEO E BOTÃO TELA CHEIA --- */
         #video-overlay {
             position: fixed;
             top: 0;
@@ -33,20 +35,8 @@
             width: 100%;
             max-width: 1000px;
             box-shadow: 0 0 50px rgba(0,0,0,0.5);
-        }
-
-        /* Camada de blur usando SVG filter — funciona no Safari/iOS */
-        #blur-layer {
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            z-index: 5;
-            pointer-events: none;
-            transition: opacity 0.5s ease;
-            /* SVG filter aplicado via CSS — compatível com iOS Safari */
-            -webkit-filter: url(#svg-blur);
-            filter: url(#svg-blur);
-            background: rgba(0,0,0,0.01); /* força o layer a existir no compositor */
+            transition: filter 0.5s ease;
+            filter: blur(8px); /* Blur inicial antes de clicar */
         }
 
         .btn-entrar-full {
@@ -55,7 +45,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.4);
+            background: rgba(0, 0, 0, 0.4); /* Escurece levemente o fundo */
             border: none;
             color: var(--gold-thin);
             cursor: pointer;
@@ -80,6 +70,7 @@
             visibility: hidden;
             pointer-events: none;
         }
+        /* ------------------------------------------- */
 
         body {
             margin: 0;
@@ -97,7 +88,8 @@
 
         header {
             position: fixed;
-            top: 0; left: 0;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 80px;
             background-color: var(--header-bg);
@@ -111,7 +103,10 @@
             box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
         }
 
-        nav { display: flex; justify-content: center; }
+        nav {
+            display: flex;
+            justify-content: center;
+        }
 
         nav a {
             text-decoration: none;
@@ -137,8 +132,13 @@
             transition: width 0.3s ease;
         }
 
-        nav a:hover, nav a.active { color: var(--gold-thin); }
-        nav a.active::after { width: 20px; }
+        nav a:hover, nav a.active {
+            color: var(--gold-thin);
+        }
+
+        nav a.active::after {
+            width: 20px;
+        }
 
         .wrapper {
             max-width: 800px;
@@ -206,7 +206,9 @@
             text-justify: inter-word;
         }
 
-        .fade-in { animation: reveal 1.8s ease forwards; }
+        .fade-in {
+            animation: reveal 1.8s ease forwards;
+        }
 
         @keyframes reveal {
             from { opacity: 0; transform: translateY(40px); filter: blur(15px); }
@@ -226,25 +228,14 @@
             border-top: 1px solid var(--line-color);
             margin-top: auto;
         }
-    </style>
 
-    <!-- SVG filter invisível — define o blur que funciona no iOS Safari -->
-    <svg xmlns="http://www.w3.org/2000/svg" style="position:absolute;width:0;height:0;">
-        <defs>
-            <filter id="svg-blur" x="-20%" y="-20%" width="140%" height="140%">
-                <feGaussianBlur stdDeviation="8"/>
-            </filter>
-        </defs>
-    </svg>
+    </style>
 </head>
 <body>
 
     <div id="video-overlay">
         <video id="intro-video" src="IntroTrabalhoInterdisciplinar.mp4" playsinline></video>
-
-        <!-- Camada que aplica o blur via SVG filter -->
-        <div id="blur-layer"></div>
-
+        
         <button class="btn-entrar-full" onclick="iniciarSite()">Clique para Entrar</button>
     </div>
 
@@ -260,10 +251,13 @@
     <div class="wrapper fade-in">
         <div id="inicio" class="tab-content active">
             <h1 style="font-weight: bold;"> Colégio Marista <span>São Luís</span></h1>
+            
             <div class="divider"></div>
+
             <div class="img-box">
                 <img src="https://i.ibb.co/MyX27pbJ/Captura-de-tela-2026-03-20-162538.png" alt="Fachada do Colégio">
             </div>
+
             <div class="content-text">
                 Nossa escola é mais do que um centro de ensino, é uma família dedicada à formação integral de cidadãos éticos e solidários. Aqui, unimos tradição e inovação para criar um ambiente de aprendizado acolhedor e estimulante.
             </div>
@@ -285,14 +279,20 @@
     <script>
         function iniciarSite() {
             const video = document.getElementById('intro-video');
+            const overlay = document.getElementById('video-overlay');
             const btn = document.querySelector('.btn-entrar-full');
-            const blurLayer = document.getElementById('blur-layer');
 
-            // Esconde o blur e o botão
-            blurLayer.style.opacity = '0';
-            btn.style.display = 'none';
+            // Remove o blur do vídeo e esconde o botão
+            video.style.filter = "none";
+            btn.style.display = "none";
 
-            video.play().catch(() => finalizarIntro());
+            // Inicia o vídeo com som
+            video.play().catch(error => {
+                console.error("Erro ao dar play:", error);
+                finalizarIntro();
+            });
+
+            // Quando terminar, entra no site
             video.onended = finalizarIntro;
         }
 
@@ -306,7 +306,9 @@
             document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
             document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
             const targetContent = document.getElementById(tabId);
-            if (targetContent) targetContent.classList.add('active');
+            if(targetContent) {
+                targetContent.classList.add('active');
+            }
             el.classList.add('active');
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
